@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq_sandbox
+    image: rabbitmq:3-management
+    hostname: my-rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+    cpus: 1
+    mem_limit: 1G
+    mem_reservation: 1G
+    volumes:
+      - ./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ./rabbitmq/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+      - ./rabbitmq/logs:/var/log/rabbitmq/log
+
+networks:
+  dev-net:
+    external: true
